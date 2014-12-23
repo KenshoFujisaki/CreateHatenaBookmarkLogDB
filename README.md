@@ -1,6 +1,7 @@
 CreateHatenaBookmarkLogDB
 =========================
 
+[はてブ記事を用いた興味分析](http://d.hatena.ne.jp/ni66ling/20141223/1419323806 "はてブ記事を用いた興味分析")の[データの準備](http://d.hatena.ne.jp/ni66ling/20141223/1419323344 "データ準備")のためのスクリプトです．  
 はてブRSSファイルに対して，そのそれぞれのWebページについて本文抽出と形態素解析をし，  
 その結果をMySQLのDBに登録します．結果，次のようなDB（MySQL）状態が出来上がります．
 ![ER図](http://cdn-ak.f.st-hatena.com/images/fotolife/n/ni66ling/20141223/20141223184030.png)  
