@@ -6,7 +6,7 @@ CreateHatenaBookmarkLogDB
 ![ER図](http://cdn-ak.f.st-hatena.com/images/fotolife/n/ni66ling/20141223/20141223184030.png)  
 
 # 事前準備
-MacOSX環境にてgcc-4.8, mecab, python, pip, rubyが事前にインストールされていることを前提とします．
+MacOSX環境にてgcc-4.8, python, pip, rubyが事前にインストールされていることを前提とします．
 ### 1. Cコードのコンパイル
 ```bash
 $ cd scripts
@@ -17,11 +17,13 @@ $ gcc-4.8 `mysql_config --include` `mecab-config --cflags` parse_web_content_to_
 $ brew install xpdf
 ```
 詳細設定は[PDF文書からテキストを抽出する](http://d.hatena.ne.jp/uchiuchiyama/20060509/1147184615 "PDF文書からテキストを抽出する")を参照
-### 3. MySQL-pythonのインストール
+### 3. pythonライブラリのインストール
 ```bash
 $ sudo pip install MySQL-python
+$ sudo pip install nltk
 ```
-### 3. MySQLのユーザー登録・hatena_bookmarkデータベースへの権限付与
+また, MeCabを[Homebrew + Virtualenv 環境でMeCabのインストール](http://salinger.github.io/blog/2013/01/17/1/ "Homebrew + Virtualenv 環境でMeCabのインストール")に従いインストールする．
+### 4. MySQLのユーザー登録・データベースへの権限付与
 ```bash
 $ mysql -u root -p
 ```
