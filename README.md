@@ -49,3 +49,6 @@ $ vim scripts/data/stoplist.dat
 $ cd scripts
 $ ./main.sh
 ```
+
+# ライセンス
+extractcontent.rbはBSDライセンスにて配布されたコードであり，Nakatani Shuyoさんが著作権を保持しており，無保証です．
