@@ -3,7 +3,7 @@ CreateHatenaBookmarkLogDB
 
 はてブRSSファイルに対して，そのそれぞれのWebページについて本文抽出と形態素解析をし，  
 その結果をMySQLのDBに登録します．結果，次のようなDB（MySQL）状態が出来上がります．
-![ER図](http://cdn-ak.f.st-hatena.com/images/fotolife/n/ni66ling/20141223/20141223153137.png)  
+![ER図](http://cdn-ak.f.st-hatena.com/images/fotolife/n/ni66ling/20141223/20141223184030.png)  
 
 # 事前準備
 MacOSX環境にてgcc-4.8, mecab, python, pip, rubyが事前にインストールされていることを前提とします．
@@ -49,6 +49,57 @@ $ vim scripts/data/stoplist.dat
 $ cd scripts
 $ ./main.sh
 ```
+
+# テーブル定義について
+##### urlテーブル（URLを保持）
+|カラム名|内容|
+|---|---|
+|id|ID|
+|url|URL|
+|title|ページタイトル|
+|update_date|更新日時|
+
+##### tagテーブル（タグを保持）
+|カラム名|内容|
+|---|---|
+|id|ID|
+|name|タグ名|
+
+##### morphemeテーブル（webページの本文に含まれる形態素，IDFを保持）
+|カラム名|内容|
+|---|---|
+|id|ID|
+|name|形態素名|
+|idf|IDF（この形態素が存在するwebページ数）|
+
+##### stoplistテーブル（ストップワード，形態素とのマッピングを保持）
+|カラム名|内容|
+|---|---|
+|id|ID|
+|name|ストップワード名|
+|morpheme_id|morphemeテーブルのid|
+
+##### url_contentテーブル（webページの本文情報を保持）
+|カラム名|内容|
+|---|---|
+|id|ID|
+|url_id|urlテーブルのid|
+|content|webページurl_idの本文情報|
+
+##### url_tagテーブル（URLとタグのマッピングを保持）
+|カラム名|内容|
+|---|---|
+|id|ID|
+|url_id|urlテーブルのid|
+|tag_id|tagテーブルのid|
+
+##### url_morphemeテーブル（URLと形態素のマッピング，TFを保持）
+|カラム名|内容|
+|---|---|
+|id|ID|
+|url_id|urlテーブルのid|
+|morpheme_id|morphemeテーブルのid|
+|morpheme_count|TF（webページurl_idにおける形態素morpheme_idの出現回数）|
 
 # ライセンス
 extractcontent.rbはBSDライセンスにて配布されたコードであり，Nakatani Shuyoさんが著作権を保持しており，無保証です．
