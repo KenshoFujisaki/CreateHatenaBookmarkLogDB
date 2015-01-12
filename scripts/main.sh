@@ -43,6 +43,7 @@ fi
 
 # 本文情報を形態素解析し，TF/IDF(+残差IDF)をdatファイルに書き出します．
 echo "> 本文情報を形態素解析し，TF/IDF(+残差IDF)をdatファイルに出力します．"
+mkdir ./_tmp
 ./parse_web_content_to_morpheme.o
 if [ $? -eq 0 ]; then
   echo "> 正常に終了しました．"
