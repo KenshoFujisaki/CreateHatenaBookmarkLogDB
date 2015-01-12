@@ -36,12 +36,12 @@ int string_length(const char *s) {
 /**
  * 文章の文分解
  */
-int split(char *str, const char *delim, char **outlist) {
+int split(char *str, const char *delim, char **sentences) {
   char    *tk;
   int     cnt = 0;
   tk = strtok( str, delim );
   while( tk != NULL && cnt < MAX_SENTENCE_ITEM) {
-    outlist[cnt] = tk;
+    sentences[cnt] = tk;
     cnt++;
     tk = strtok( NULL, delim );
   }
@@ -71,12 +71,15 @@ int morphemize(char *content, char **morpheme_list)
   /* 各文について形態素解析 */
 #pragma omp parallel for num_threads(8)
   for(int i=0; i<nof_sentences; i++) {
-    
+    if (morpheme_counter >= MAX_MORPHEME_ITEM) {
+      continue;
+    }
+
     /* MeCab */
     MeCab::Tagger *tagger = MeCab::createTagger("-Ochasen");
     const MeCab::Node *node = tagger->parseToNode(sentences[i]);
     while (node) {
-      
+
       // 形態素取得
       char* surface = new char[node->length+1];
       strncpy(surface, node->surface, node->length);
@@ -90,11 +93,14 @@ int morphemize(char *content, char **morpheme_list)
       {
         int nof_features = split(feature, ",", features);
       }
-      
+
       // 品詞選択
       if (strcmp(features[0], "名詞")==0) {
         if(strcmp(features[1], "一般")==0 || strcmp(features[1], "固有名詞")==0) {
           if (strlen(surface) > 2) {
+            if (morpheme_counter >= MAX_MORPHEME_ITEM) {
+              break;
+            }
             // 返却値に登録
 #pragma omp critical
             {

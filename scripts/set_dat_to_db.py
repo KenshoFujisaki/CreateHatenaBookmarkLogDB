@@ -20,9 +20,11 @@ print(">> morphemeテーブルへの登録開始")
 f = open("./_tmp/_dic_morpheme_morphemeID_IDF.dat", 'rU')
 reader = csv.reader(f, delimiter=' ')
 for line in reader:
+        morpheme = " ".join(line[0:len(line)-2])
+        idf = line[-1]
 	cursor.execute(
 		"INSERT INTO morpheme (id, name, idf, ridf) VALUES (null, %s, %s, null)", 
-		[line[0], line[2]])
+		[morpheme, idf])
 connection.commit()
 f.close()
 print(">> morphemeテーブルへの登録完了")

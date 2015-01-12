@@ -14,6 +14,11 @@ pp = pprint.PrettyPrinter(indent=2)
 connection = MySQLdb.connect(user="hatena", host="localhost", passwd="hatena", db="hatena_bookmark", charset='utf8')
 cursor = connection.cursor()
 
+# テーブル存在の確認
+cursor.execute("SHOW TABLES FROM hatena_bookmark like 'stoplist'")
+if(cursor.fetchone() == None):
+    cursor.execute("CREATE TABLE stoplist (id int(11) NOT NULL AUTO_INCREMENT, name varchar(128) NOT NULL, morpheme_id int(11), PRIMARY KEY (id))")
+
 # 既存データの削除
 print(">> stoplistテーブルのデータをtruncate（削除）します．")
 cursor.execute("TRUNCATE TABLE stoplist");
@@ -39,6 +44,7 @@ f.close()
 
 print(">> stoplistテーブルに登録します．")
 for line in stopmorpheme_morphemeId:
+  print line
   if line[1] != -1:
     cursor.execute(
       "INSERT INTO stoplist (id, name, morpheme_id) VALUES (null, %s, %s)", 

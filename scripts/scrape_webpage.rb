@@ -4,7 +4,6 @@
 # ruby webpage_scrape.rb http://labs.cybozu.co.jp/blog/nakatani/2007/09/web_1.html
 
 require "open-uri"
-require "bundler/setup"
 require "./extractcontent.rb"
 
 if ARGV.length != 1
@@ -20,7 +19,6 @@ charset = URI.parse(URL).read.charset.to_s.downcase
 
 # iso-8859-1/何もなしの場合は，誤認識の可能性が高いので，他の文字コードとして処理
 if charset == "iso-8859-1" || charset == ""
-	
 	# 各文字コードの候補に対して本文抽出（各文字コードを試して，例外がでなければそれを標準出力）
 	charset_list = ["rb:utf-8", "rb:Shift_JIS", "rb:eucJP"]
 	charset_list.each do |charset_est|
