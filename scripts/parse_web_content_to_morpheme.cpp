@@ -123,7 +123,7 @@ int morphemize(char *content, char **morpheme_list)
       // 品詞選択
       if (strcmp(features[0], "名詞")==0) {
         if(strcmp(features[1], "一般")==0 || strcmp(features[1], "固有名詞")==0) {
-          if (utf8_strlen(surface) > 2) {
+          if (utf8_strlen(surface) > 1) {
             if (morpheme_counter >= MAX_MORPHEME_ITEM) {
               break;
             }
