@@ -53,6 +53,12 @@ else
 fi
 
 # datファイルに書きだされた結果をDB(MySQL)に登録します．
+# ここから実行再開する場合、以下のMySQLを実行する。
+#   set foreign_key_checks = 0;
+#   truncate table morpheme;
+#   truncate talbe url_morpheme;
+#   truncate table stoplist;
+#   set foreign_key_checks = 1;
 echo "> datファイルをDBに登録します．"
 python set_dat_to_db.py
 if [ $? -eq 0 ]; then
@@ -63,6 +69,8 @@ else
 fi
 
 # ストップワードをDBに登録します．
+# ここから実行再開する場合、以下のMySQLを実行する。
+#   truncate table stoplist;
 echo "> ストップワード(./data/stoplist.dat)をDBに登録します．"
 python set_stoplist_to_db.py
 if [ $? -eq 0 ]; then
