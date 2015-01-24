@@ -7,7 +7,8 @@ CreateHatenaBookmarkLogDB
 ![ER図](http://cdn-ak.f.st-hatena.com/images/fotolife/n/ni66ling/20141223/20141223184030.png)  
 
 ## 事前準備
-MacOSX環境にて[mysql](http://tukaikta.blog135.fc2.com/blog-entry-197.html "HomebrewでMySQLをインストールする時に知っておきたいこと"), [mecab](https://github.com/KenshoFujisaki/CreateMecabDic "KenshoFujisaki/CreateMecabDic:WikipediaとはてブのデータからMeCabの辞書を作成します。"), python, pip, rubyが事前にインストールされていることを前提とします．
+MacOSX環境にて[mysql](http://tukaikta.blog135.fc2.com/blog-entry-197.html "HomebrewでMySQLをインストールする時に知っておきたいこと"), [mecab](https://github.com/KenshoFujisaki/CreateMecabDic "KenshoFujisaki/CreateMecabDic:WikipediaとはてブのデータからMeCabの辞書を作成します。"), python, pip, rubyが事前にインストールされていることを前提とします．  
+
 1. Cコードのコンパイル
     ```bash
     $ cd scripts
@@ -95,6 +96,7 @@ MacOSX環境にて[mysql](http://tukaikta.blog135.fc2.com/blog-entry-197.html "H
     $ vim scripts/data/stoplist.dat
     ```
     デフォルトのストップワードの詳細は[HTML特殊文字を含めたストップワード](http://d.hatena.ne.jp/ni66ling/20141130 "HTML特殊文字を含めたストップワード")を参照
+    
 3. 実行
     ```bash
     $ cd scripts
@@ -160,7 +162,7 @@ MacOSX環境にて[mysql](http://tukaikta.blog135.fc2.com/blog-entry-197.html "H
   |morpheme_count|TF（webページurl_idにおける形態素morpheme_idの出現回数）|
 
 補足
-```
+```sql
 # URLを保持
 create table url ( 
   id int(11) not null auto_increment, 
