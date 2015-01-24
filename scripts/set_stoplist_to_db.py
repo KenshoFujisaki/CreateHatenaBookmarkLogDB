@@ -38,13 +38,11 @@ for line in reader:
   morpheme_id = -1
   if isinstance(res, tuple):
     morpheme_id = res[0]
-  print(stopmorpheme + '\t' + str(morpheme_id))
   stopmorpheme_morphemeId += [[stopmorpheme, morpheme_id]]
 f.close()
 
 print(">> stoplistテーブルに登録します．")
 for line in stopmorpheme_morphemeId:
-  print line
   if line[1] != -1:
     cursor.execute(
       "INSERT INTO stoplist (id, name, morpheme_id) VALUES (null, %s, %s)", 
