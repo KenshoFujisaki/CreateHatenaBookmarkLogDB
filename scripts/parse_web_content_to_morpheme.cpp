@@ -10,6 +10,7 @@
 #include <time.h>
 #include <omp.h>
 #include <ctype.h>
+#include <locale.h>
 
 #define MAX_SENTENCE_ITEM 8192
 #define MAX_SENTENCE_LEN 2048
@@ -21,6 +22,31 @@ typedef struct url_morpheme {
   std::string morpheme;
   int term_freq;
 } url_morpheme;
+
+/*
+  UTF-8の文字列長の取得
+ */
+unsigned int utf8_strlen(std::string str)
+{
+  using namespace std;
+  unsigned int len = 0;
+  unsigned char lead; 
+  int char_size = 0;
+  for (string::iterator it = str.begin(); it != str.end(); it += char_size) {
+    lead = *it;
+    if (lead < 0x80) {
+      char_size = 1;
+    } else if (lead < 0xE0) {
+      char_size = 2;
+    } else if (lead < 0xF0) {
+      char_size = 3;
+    } else {
+      char_size = 4;
+    }
+    len += 1;
+  }
+  return len;
+}
 
 /**
  * 文字列長の取得
@@ -97,7 +123,7 @@ int morphemize(char *content, char **morpheme_list)
       // 品詞選択
       if (strcmp(features[0], "名詞")==0) {
         if(strcmp(features[1], "一般")==0 || strcmp(features[1], "固有名詞")==0) {
-          if (strlen(surface) > 2) {
+          if (utf8_strlen(surface) > 2) {
             if (morpheme_counter >= MAX_MORPHEME_ITEM) {
               break;
             }
